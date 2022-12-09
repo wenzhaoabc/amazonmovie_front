@@ -18,6 +18,12 @@ const routes = [
                 name: 'Relationship',
                 component: () => import("@/views/relationship")
             },
+            {
+                path: '/origin',
+                name: 'Origin',
+                component: () => import("@/views/origin")
+            },
+
         ]
     }
 ]
