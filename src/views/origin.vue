@@ -13,7 +13,11 @@
         border
         stripe
         style="width: 100%;">
-      <el-table-column label="电影编号" prop="asin" @click="gotoPage(asin)"/>
+      <el-table-column label="电影编号" prop="asin">
+        <template v-slot="scope">
+          <a :href="'https:www.amazon.com/dp/'+scope.row.asin" target="_blank" class="buttonText">{{scope.row.asin}}</a>
+        </template>
+      </el-table-column>
       <el-table-column label="电影名称" prop="name"/>
       <el-table-column label="电影得分" prop="score"/>
       <el-table-column label="导演" prop="director"/>
@@ -32,10 +36,13 @@
 </template>
 
 <script>
+import axios from "axios";
+
 export default {
   name: "origin",
   data() {
     return {
+      BASE_URL: 'http://localhost:8888',
       dialogData: {
         movieTitle: 'hello',
         versionCount: 4,
@@ -57,8 +64,18 @@ export default {
     }
   },
   methods: {
-    gotoPage(asin) {
-      window.open('https:www.amazon.com/dp/' + asin)
+    searchMovieByTitle () {
+      var axios = require('axios');
+      // 向mysql发送请求
+      axios({
+        method: 'get',
+        url: this.BASE_URL + '',
+        data: this.searchingTitle,
+        headers: {}
+      }).then(response => {
+        this.dialogData = response.dialogs
+        this.movieData = response.movies
+      })
     }
   }
 }
@@ -73,5 +90,9 @@ export default {
 .el-table {
   margin-top: 20px;
   margin-bottom: 20px;
+}
+a {
+  text-decoration: none;
+  color: black;
 }
 </style>
