@@ -6,6 +6,7 @@ const routes = [
     {
         path: '/',
         name: 'Layout',
+        redirect: '/movie',
         component: Layout,
         children: [
             {
