@@ -13,6 +13,10 @@
         <el-icon><document /></el-icon>
         关系查询
       </el-menu-item>
+      <el-menu-item index="/flow">
+        <el-icon><Location /></el-icon>
+        数据流向
+      </el-menu-item>
       <el-menu-item index="/origin">
         <el-icon><Location /></el-icon>
         溯源查询

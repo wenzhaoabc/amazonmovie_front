@@ -20,6 +20,11 @@ const routes = [
                 component: () => import("@/views/relationship")
             },
             {
+                path: '/flow',
+                name: 'Flow',
+                component: () => import("@/views/flow")
+            },
+            {
                 path: '/origin',
                 name: 'Origin',
                 component: () => import("@/views/origin")
