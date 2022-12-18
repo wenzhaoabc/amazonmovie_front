@@ -11,6 +11,7 @@
                 style="width: 20vw;"
                 clearable
                 @select="handleSelect"
+              
             />
           </el-form-item>
           <el-row>
@@ -340,7 +341,7 @@ export default {
       actorInputValue: '',
       activeName: 'first',
       searchText: '暂无查询',
-      BASE_URL: 'http://localhost:8888',
+      BASE_URL: 'http://localhost:8084',
       HIVE_BASE_URL: 'http://localhost:8102',
       movieData: [
         {
@@ -450,21 +451,23 @@ export default {
         params: {"movieName": queryString},
         headers: {}
       };
-
-      // 向mysql 发送请求
+      
+      //向mysql 发送请求
       axios(config)
           .then(response => {
             console.log(response.data)
             var result = []
-            for (let i = 0; i < response.data.movies.length; ++i) {
-              result.push({"value": response.data.movies[i]})
+            for (let i = 0; i < response.data.length; ++i) {
+              if(result.length>25)
+                break;
+              result.push({"value": response.data[i]})
             }
             cb(result);
           })
           .catch(function (error) {
             this.$message.error('当前网络异常，请稍后再试');
           });
-    }
+     }
     ,
     directorSearchSuggest(queryString, cb) {
       var axios = require('axios');
@@ -480,10 +483,9 @@ export default {
       axios(config)
           .then(response => {
             var result = []
-            for (let i = response.data.length - 1; i >= 0; --i) {
-              if (result.length >= 25) {
-                break
-              }
+            for (let i = 0; i <response.data.length; ++i) {
+              if(result.length>25)
+                break;
               result.push({"value": response.data[i]})
             }
             cb(result);
@@ -491,8 +493,8 @@ export default {
           .catch(function (error) {
             this.$message.error('当前网络异常，请稍后再试');
           });
-    }
-    ,
+    },
+    
     actorSearchSuggest(queryString, cb) {
       var axios = require('axios');
 
@@ -507,10 +509,9 @@ export default {
       axios(config)
           .then(response => {
             var result = []
-            for (let i = response.data.length - 1; i >= 0; --i) {
-              if (result.length >= 25) {
-                break
-              }
+            for (let i = 0; i <response.data.length; ++i) {
+              if(result.length>25)
+                break;
               result.push({"value": response.data[i]})
             }
             cb(result);
@@ -518,8 +519,8 @@ export default {
           .catch(function (error) {
             this.$message.error('当前网络异常，请稍后再试');
           });
-    }
-    ,
+    },
+    
 
     categoryRemoteSearch(query) {
 
@@ -538,13 +539,11 @@ export default {
       axios(config)
           .then(response => {
             var result = []
-            for (let i = response.data.length - 1; i >= 0; --i) {
-              if (result.length >= 25) {
-                break
-              }
+            for (let i = 0; i <response.data.length; ++i) {
+              if(result.length>25)
+                break;
               result.push({"value": response.data[i]})
             }
-
             this.movieCategory = result;
             this.categoryLoading = false;
           })
@@ -637,9 +636,8 @@ export default {
     ,
 
     searchMovie() {
-
       // 清空上一轮查询结果
-      this.clearResult();
+      // this.clearResult();
 
       // 跳转到查询结果界面
       this.activeName = 'first'
@@ -738,7 +736,7 @@ export default {
       }
       searchText += " 的电影"
       this.searchText = searchText
-      this.vchartsConfig.extend.title.subtext = searchText
+    //  this.vchartsConfig.extend.title.subtext = searchText
 
       this.relationReady = false
       this.distributeReady = false

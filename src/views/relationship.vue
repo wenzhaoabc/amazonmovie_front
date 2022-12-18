@@ -105,7 +105,7 @@ export default {
       speed: [1, 2, 3],
       activeName: 'first',
       searchText: '暂无查询',
-      BASE_URL: 'http://localhost:8888',
+      BASE_URL: 'http://localhost:8084',
       HIVE_BASE_URL: 'http://localhost:8102',
 
       categoryLoading: false,
@@ -301,8 +301,10 @@ export default {
       // 向mysql发送请求
       axios({
         method: 'get',
-        url: this.BASE_URL + '',
-        data: this.directorInputValue,
+        url: this.BASE_URL + '/mysql/association/director/cooperation',
+        params:{ 
+          directorName:this.directorInputValue
+        },
         headers: {}
       }).then(response => {
         this.speed[0] = response.data.time
@@ -340,8 +342,10 @@ export default {
       // 向mysql发送请求
       axios({
         method: 'get',
-        url: this.BASE_URL + '',
-        data: this.actorInputValue,
+        url: this.BASE_URL + '/mysql/association/actor/cooperation',
+        params:{
+          actorName:this.actorInputValue,
+        } ,
         headers: {}
       }).then(response => {
         this.speed[0] = response.data.time
@@ -379,8 +383,10 @@ export default {
       // 向mysql发送请求
       axios({
         method: 'get',
-        url: this.BASE_URL + '',
-        data: this.actorInputValue,
+        url: this.BASE_URL + '/mysql/association/actor/director/cooperation',
+        params:{
+          actorName:this.actorInputValue,
+        } ,
         headers: {}
       }).then(response => {
         this.speed[0] = response.data.time
@@ -454,7 +460,7 @@ export default {
       axios(config)
           .then(response => {
             var result = []
-            for (let i = response.data.length - 1; i >= 0; --i) {
+            for (let i = 0; i < response.data.length; ++i) {
               if (result.length >= 25) {
                 break
               }
@@ -497,7 +503,6 @@ export default {
       console.log(tab, event);
     }
     ,
-
     clearResult() {
       this.movieData.splice(0, this.movieData.length)
       this.hasResult = false
