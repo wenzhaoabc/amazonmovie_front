@@ -326,8 +326,8 @@ export default {
       // 向neo4j发送请求
       axios({
         method: 'get',
-        url: '',
-        data: this.directorInputValue,
+        url: this.BASE_URL+'/api/neo4j/relationship/directorAndActor',
+        params: {directorName:this.directorInputValue},
         headers: {}
       }).then(response => {
         this.speed[2] = response.data.time
@@ -367,8 +367,8 @@ export default {
       // 向neo4j发送请求
       axios({
         method: 'get',
-        url: '',
-        data: this.actorInputValue,
+        url: this.BASE_URL+'/api/neo4j/relationship/actors',
+        params: {actorName:this.actorInputValue},
         headers: {}
       }).then(response => {
         this.speed[2] = response.data.time
@@ -408,8 +408,8 @@ export default {
       // 向neo4j发送请求
       axios({
         method: 'get',
-        url: '',
-        data: this.actorInputValue,
+        url: this.BASE_URL+'/api/neo4j/relationship/actorAndDirector',
+        params: {actorName:this.actorInputValue},
         headers: {}
       }).then(response => {
         this.speed[2] = response.data.time

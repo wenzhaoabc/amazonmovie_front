@@ -747,7 +747,7 @@ export default {
 
       var config = {
         method: 'post',
-        url: this.BASE_URL + '/neo4j/movie',
+        url: this.BASE_URL + '/api/neo4j/movie/result',
         data: searchCondition,
         headers: {}
       };
